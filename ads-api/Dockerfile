@@ -9,9 +9,8 @@ ENV PROJECT_HOME /opt/ads-api
 COPY node_modules $PROJECT_HOME/node_modules
 COPY ./dist $PROJECT_HOME/dist
 COPY ./.env $PROJECT_HOME/.env
+COPY ./package.json $PROJECT_HOME/package.json
 
 WORKDIR $PROJECT_HOME
 
 EXPOSE 3000
-
-# RUN node ./dist/app.js

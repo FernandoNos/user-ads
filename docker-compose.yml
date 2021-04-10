@@ -19,3 +19,14 @@ services:
       - "3000:3000"
     depends_on:
       - mongo
+
+  security-api:
+    image: security-api:v1
+    command: node ./dist/app.js
+    restart: always
+    container_name: security-api
+    working_dir: /opt/security-api
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongo
