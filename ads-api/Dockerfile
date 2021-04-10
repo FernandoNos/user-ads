@@ -3,10 +3,11 @@ FROM node:14
 
 RUN mkdir -p /opt/ads-api
 RUN npm i
+RUN npx tsc
 ENV PROJECT_HOME /opt/ads-api
 
 COPY node_modules $PROJECT_HOME/node_modules
-COPY dist $PROJECT_HOME/dist
+COPY ./dist $PROJECT_HOME/dist
 
 WORKDIR $PROJECT_HOME
 
