@@ -1,0 +1,17 @@
+version: '3.1'
+
+services:  
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+
+  ads-api:
+    image: ads-api
+    command: node ./dist/app.js
+    restart: always
+    container_name: ads-api
+    working_dir: /opt/ads-api
+    depends_on:
+      - mongo
