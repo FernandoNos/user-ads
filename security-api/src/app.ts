@@ -1,18 +1,19 @@
 import dotenv from 'dotenv'
-dotenv.config()
 import express from 'express';
 import {debug} from "debug";
+import bodyParser from "body-parser";
 import {Database} from "./configs/database";
+dotenv.config()
 debug('security-api');
+
 const app = express();
 const {PORT} = process.env;
 
 (async()=>{
   module.exports.MongoClient = await new Database().getDbConenction()
 
-  app.get('/', (req, res) => {
-    res.send('The sedulous hyena ate the antelope!');
-  });
+  app.use(bodyParser.json());
+  app.use(`/api`, require('./adapters/input').router);
   app.listen(PORT, () => {
     debug.log(`server is listening on ${PORT}`);
   });
