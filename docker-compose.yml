@@ -4,14 +4,16 @@ services:
 
   mongo:
     image: mongo
-    container_name: mongo
+    container_name: ads-user-mongo
     restart: always
 
   ads-api:
-    image: ads-api
+    image: ads-api:v1
     command: node ./dist/app.js
     restart: always
     container_name: ads-api
     working_dir: /opt/ads-api
+    ports:
+      - "3000:3000"
     depends_on:
       - mongo

@@ -8,6 +8,7 @@ ENV PROJECT_HOME /opt/ads-api
 
 COPY node_modules $PROJECT_HOME/node_modules
 COPY ./dist $PROJECT_HOME/dist
+COPY ./.env $PROJECT_HOME/.env
 
 WORKDIR $PROJECT_HOME
 
