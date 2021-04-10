@@ -6,6 +6,8 @@ services:
     image: mongo
     container_name: ads-user-mongo
     restart: always
+    ports:  # for demo/debug purpose only
+     - "27018:27017"
 
   ads-api:
     image: ads-api:v1
