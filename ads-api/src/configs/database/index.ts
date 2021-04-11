@@ -1,6 +1,6 @@
 import { Db, MongoClient } from "mongodb";
 import {debug} from 'debug'
-debug('configs:mongo');
+debug('configs_old:mongo');
 
 export class Database {
   getDbConenction(): Promise<Db | null> {

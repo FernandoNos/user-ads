@@ -1,0 +1,17 @@
+POST http://localhost:3000/api/product
+Content-Type: application/json
+
+{
+  "price": 132,
+  "image": "http://www.google.coim",
+  "brand": "test",
+  "title": "test",
+  "reviewScore": 1
+}
+
+###
+GET http://localhost:3000/api/product/18597ca7-e132-455a-b58e-c03704ff8aae
+Content-Type: application/json
+###
+GET http://localhost:3000/api/product?page=3
+Content-Type: application/json

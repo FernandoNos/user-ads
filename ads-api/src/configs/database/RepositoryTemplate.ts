@@ -24,7 +24,7 @@ export class MongoRepository<T extends BaseEntity> {
 
   public create(entity: T): Promise<any> {
     return this.repositoryCollection.insertOne(entity).then((result) => {
-      return result.ops[0];
+      return this.mapFunction(result.ops[0]);
     });
   }
 
@@ -39,10 +39,10 @@ export class MongoRepository<T extends BaseEntity> {
     const updateValues = { $set: fields };
 
     return this.repositoryCollection
-      .findOneAndUpdate(query, updateValues, { upsert: true, returnOriginal: false })
-      .then((result) => {
-        return result.value;
-      });
+        .findOneAndUpdate(query, updateValues, { upsert: true, returnOriginal: false })
+        .then((result) => {
+          return result.value;
+        });
   }
 
   public update(entity: T, updatedValues: object): Promise<any> {
@@ -53,10 +53,10 @@ export class MongoRepository<T extends BaseEntity> {
     const updateValues = { $set: updatedValues };
 
     return this.repositoryCollection
-      .findOneAndUpdate(query, updateValues, { upsert: true })
-      .then((result) => {
-        return this.mapFunction(result);
-      });
+        .findOneAndUpdate(query, updateValues, { upsert: true })
+        .then((result) => {
+          return this.mapFunction(result);
+        });
   }
 
   public findOne(query: FilterQuery<any>): Promise<any> {
@@ -75,7 +75,7 @@ export class MongoRepository<T extends BaseEntity> {
     return new Promise(async (resolve, rejects) => {
       const result: any[] = [];
       while (await queryResult.hasNext()) {
-        result.push(await queryResult.next());
+        result.push(this.mapFunction(await queryResult.next()));
       }
       return resolve(result);
     });
