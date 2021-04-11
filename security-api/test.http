@@ -5,3 +5,11 @@ Content-Type:application/json
   "name": "Fernando",
   "email": "test@tefst.com"
 }
+###
+POST http://localhost:3001/api/login
+Content-Type:application/json
+
+{
+  "name": "Fernando",
+  "email": "test@tefst.com"
+}
