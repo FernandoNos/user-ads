@@ -1,6 +1,5 @@
 FROM node:14
 
-
 RUN mkdir -p /opt/ads-api
 RUN npm i
 RUN npx tsc

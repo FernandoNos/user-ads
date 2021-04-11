@@ -22,10 +22,12 @@ services:
 
   security-api:
     image: security-api:v1
-    command: node ./dist/app.js
+    command: bash -c "cd dist && ls -a &&  npx migrate-mongo up &&  node ./app.js"
     restart: always
     container_name: security-api
     working_dir: /opt/security-api
+    env_file:
+      - .env
     ports:
       - "3001:3001"
     depends_on:

@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import express from 'express';
 import {debug} from "debug";
-import {Database} from "./database";
+import {Database} from "./configs/configs/database";
 debug('ads-api');
 const app = express();
 const {PORT} = process.env;
