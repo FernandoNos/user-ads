@@ -1,16 +1,16 @@
 FROM node:14
 
-
 RUN mkdir -p /opt/security-api
-RUN npm i
-RUN npx tsc
+
 ENV PROJECT_HOME /opt/security-api
-
-COPY node_modules $PROJECT_HOME/node_modules
-COPY ./dist $PROJECT_HOME/dist
-COPY ./.env $PROJECT_HOME/.env
-COPY ./package.json $PROJECT_HOME/package.json
-
+COPY . $PROJECT_HOME
+#COPY ./.env $PROJECT_HOME/.env
 WORKDIR $PROJECT_HOME
+#RUN npm i
+RUN ls -a
+#RUN npx tsc
+#RUN npx migrate-mongo up -f './src/migrate-mongo-config.js'
+RUN ls
+#COPY ./dist $PROJECT_HOME/dist
 
 EXPOSE 3001

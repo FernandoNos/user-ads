@@ -5,7 +5,8 @@ debug('configs:mongo');
 export class Database {
   getDbConenction(): Promise<Db | null> {
     const { MONGO_HOSTS } = process.env;
-    // const URL = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTS}?replicaSet=repDB`;
+    // tslint:disable-next-line:no-console
+    console.log(MONGO_HOSTS)
     const URL = `mongodb://${MONGO_HOSTS}/mongo`;
 
     return MongoClient.connect(URL, { useUnifiedTopology: true })
