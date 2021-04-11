@@ -1,21 +1,18 @@
 import {Request, Response} from 'express'
 import {RegisterRequestModel} from "./models/RegisterRequestModel";
 import {RuntimeException} from "../../../exceptions/RuntimeException";
-import * as RegistrationUseCase from '../../../core/use-cases/RegistrationUseCase'
+import * as RegistrationUseCase from '../../../core/use-cases/UserRegistrationUseCase'
 import {debug} from "debug";
-import {RegisterModel} from "../../../core/use-cases/models/RegisterRequestModel";
+import {UserRegistrationModel} from "../../../core/use-cases/models/UserRegistrationModel";
 debug('security-api:SecurityController');
 
 export async function register(request: Request, response: Response){
     try {
         const reqBody = await RegisterRequestModel.build(request.body)
-        await RegistrationUseCase.register(RegisterModel.build(reqBody))
-        response.send()
+        await RegistrationUseCase.register(UserRegistrationModel.build(reqBody))
+        response.sendStatus(201)
     }catch(error){
         debug(`Error requesting registration ${error.message} ${error.stackTrace}`)
-        if(error instanceof RuntimeException){
-            response.status(error.status).send({message: error.message})
-        }
-        response.status(500).send({message: error.message})
+        response.status(error.status ?? 500).send({message: error.message})
     }
 }
