@@ -24,7 +24,7 @@ export class MongoRepository<T extends BaseEntity> {
 
   public create(entity: T): Promise<any> {
     return this.repositoryCollection.insertOne(entity).then((result) => {
-      return result.ops[0];
+      return this.mapFunction(result.ops[0]);
     });
   }
 
@@ -45,15 +45,17 @@ export class MongoRepository<T extends BaseEntity> {
       });
   }
 
-  public update(entity: T, updatedValues: object): Promise<any> {
-    if (!entity || entity._id) throw Error(`Invalid entity received!`);
+  public update(query: any, updatedValues: object): Promise<any> {
+    if (!query) throw Error(`Invalid entity received!`);
     if (!updatedValues) throw Error(`No values to be updated provided`);
-
-    const query = { id: entity._id };
     const updateValues = { $set: updatedValues };
-
+    // this.repositoryCollection.updateOne(query,updateValues)
+    //     .then(result => {
+    //       // tslint:disable-next-line:no-console
+    //       console.log(result)
+    //     })
     return this.repositoryCollection
-      .findOneAndUpdate(query, updateValues, { upsert: true })
+      .findOneAndUpdate(query, updateValues, { upsert: false, returnOriginal:false })
       .then((result) => {
         return this.mapFunction(result);
       });
@@ -66,6 +68,10 @@ export class MongoRepository<T extends BaseEntity> {
   public findOneById(_id: string): Promise<any> {
     const oId = new ObjectId(_id);
     return this.repositoryCollection.findOne({ _id: oId });
+  }
+
+  public delete (query: FilterQuery<any>, pagination?: Pagination) : void{
+    this.repositoryCollection.deleteOne(query)
   }
 
   public findAll(query: FilterQuery<any>, pagination?: Pagination): Promise<any[]> {

@@ -10,7 +10,7 @@ const RegisterModelSchema = object().shape({
 
 export interface RegisterModelInterface extends TypeOf<typeof RegisterModelSchema> {}
 
-export class UserRegistrationModel {
+export class UserModel {
     name: string;
     email: string;
 
@@ -19,15 +19,15 @@ export class UserRegistrationModel {
         this.email = email;
     }
 
-    static build(params: RegisterRequestModel) : UserRegistrationModel{
+    static build(params: RegisterRequestModel) : UserModel{
         try {
             const validated = RegisterModelSchema.validateSync(params,{abortEarly: false})
-            return new UserRegistrationModel(validated.name, validated.email)
+            return new UserModel(validated.name, validated.email)
         }catch(error){
             throw new RuntimeException(error?.errors)
         }
     }
-    static convert(user: User): UserRegistrationModel {
-        return new UserRegistrationModel(user.name, user.email)
+    static convert(user: User): UserModel {
+        return new UserModel(user.name, user.email)
     }
 }

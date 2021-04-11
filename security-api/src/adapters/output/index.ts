@@ -1,5 +1,5 @@
 import * as Db from "../../app";
-import {UserRegistrationRepositoryImpl} from "./UserRegistrationRepositoryImpl";
+import {UsersRepositoryImpl} from "./UsersRepositoryImpl";
 const client = (Db as any).MongoClient;
 
-export const UserRegistrationRepository = new UserRegistrationRepositoryImpl(client);
+export const UsersRepository = new UsersRepositoryImpl(client);

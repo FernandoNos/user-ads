@@ -1,12 +1,6 @@
 import  {string, object, TypeOf} from 'yup';
 import {RuntimeException} from "../../../../exceptions/RuntimeException";
-
-const LoginRequestModelSchema = object().shape({
-    name: string().required(),
-    email: string().email().required(),
-});
-
-interface LoginRequestModelInterface extends TypeOf<typeof LoginRequestModelSchema> {}
+import {UserInterface, UserSchema} from "./types/UserType";
 
 export class LoginRequestModel {
     name: string;
@@ -17,9 +11,9 @@ export class LoginRequestModel {
         this.email = email;
     }
 
-    static build(params: LoginRequestModelInterface) : LoginRequestModel{
+    static build(params: UserInterface) : LoginRequestModel{
         try {
-            const validated = LoginRequestModelSchema.validateSync(params,{abortEarly: false})
+            const validated = UserSchema.validateSync(params,{abortEarly: false})
             return new LoginRequestModel(validated.name, validated.email)
         }catch(error){
             throw new RuntimeException(error?.errors)

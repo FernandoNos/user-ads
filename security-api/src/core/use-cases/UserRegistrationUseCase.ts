@@ -1,13 +1,13 @@
-import {UserRegistrationRepository} from '../../adapters/output'
-import {UserRegistrationModel} from "./models/UserRegistrationModel";
+import {UsersRepository} from '../../adapters/output'
+import {UserModel} from "./models/UserModel";
 import * as _ from 'lodash'
 import {BusinessException} from "../../exceptions/BusinessException";
 
-export async function register(registerModel: UserRegistrationModel){
+export async function register(registerModel: UserModel){
     try {
-        const dbUsers = await UserRegistrationRepository.findAll({name: registerModel.name, email: registerModel.email})
+        const dbUsers = await UsersRepository.findAll({name: registerModel.name, email: registerModel.email})
         if (!_.isEmpty(dbUsers)) throw new BusinessException("User already registered!")
-        const newUserDb = await UserRegistrationRepository.create(registerModel)
+        const newUserDb = await UsersRepository.create(registerModel)
         return newUserDb
     }catch(error){
         throw error
