@@ -1,7 +1,7 @@
 import {UserInterface} from "../../adapters/input/controllers/models/types/UserType";
 import {UserModel} from "./models/UserModel";
-import {UsersRepository} from "../../adapters/output";
-import {User} from "../../adapters/output/entities/User";
+import {UsersRepository} from "../../adapters/output/database";
+import {User} from "../../adapters/output/database/entities/User";
 
 export async function updateUser(userData: UserInterface) : Promise<UserModel>{
     const {uuid, ...data} = userData

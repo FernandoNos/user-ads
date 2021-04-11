@@ -1,7 +1,7 @@
 import {string, object, TypeOf} from 'yup';
 import {RuntimeException} from "../../../exceptions/RuntimeException";
 import {RegisterRequestModel} from "../../../adapters/input/controllers/models/RegisterRequestModel";
-import {User} from "../../../adapters/output/entities/User";
+import {User} from "../../../adapters/output/database/entities/User";
 import {LoginRequestModel} from "../../../adapters/input/controllers/models/LoginRequestModel";
 
 const UserLoginModelSchema = object().shape({

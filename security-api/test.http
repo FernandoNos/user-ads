@@ -33,5 +33,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoifcKywo7Dr
 Content-Type: application/json
 
 {
-  "product_id": "123"
+  "product_id": "18597ca7-e132-455a-b58e-c03704ff8aae"
 }

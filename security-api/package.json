@@ -22,6 +22,7 @@
     "@types/mongodb": "^3.6.12",
     "@types/node-forge": "^0.9.7",
     "@types/uuid": "^8.3.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "debug": "^2.6.9",
     "dotenv": "^8.2.0",

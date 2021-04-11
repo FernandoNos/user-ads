@@ -1,4 +1,4 @@
-import {UsersRepository} from '../../adapters/output'
+import {UsersRepository} from '../../adapters/output/database'
 import {UserModel} from "./models/UserModel";
 import * as _ from 'lodash'
 import {BusinessException} from "../../exceptions/BusinessException";

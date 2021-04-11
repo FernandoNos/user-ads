@@ -1,5 +1,5 @@
 import {UserLoginModel} from "./models/UserLoginModel";
-import {UsersRepository} from "../../adapters/output";
+import {UsersRepository} from "../../adapters/output/database";
 import _ from 'lodash';
 
 export async function login(userLoginModel: UserLoginModel) : Promise<string | undefined>{

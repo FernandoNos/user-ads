@@ -3,7 +3,7 @@ import { id } from "mongodb-typescript";
 
 // tslint:disable-next-line:max-classes-per-file
 export class BaseEntity {
-  @id _id: string;
+  @id _id: ObjectId;
 }
 
 // tslint:disable-next-line:max-classes-per-file
@@ -61,12 +61,12 @@ export class MongoRepository<T extends BaseEntity> {
       });
   }
 
-  public findOne(query: FilterQuery<any>): Promise<T> {
+  public findOne(query: FilterQuery<T>): Promise<T> {
     return this.repositoryCollection.findOne(query)
         .then((result) => {
           if(result)
             return this.mapFunction(result)
-          return {}
+          return {} as T
         })
   }
 

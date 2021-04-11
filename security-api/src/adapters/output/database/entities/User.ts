@@ -1,6 +1,6 @@
-import {BaseEntity} from "../../../configs/database/RepositoryTemplate";
+import {BaseEntity} from "../../../../configs/database/RepositoryTemplate";
 import { v4 as uuidv4 } from 'uuid';
-import {BusinessException} from "../../../exceptions/BusinessException";
+import {BusinessException} from "../../../../exceptions/BusinessException";
 
 export class User extends BaseEntity {
   email: string;

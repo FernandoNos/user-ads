@@ -1,7 +1,9 @@
-import {BaseEntity} from "../../../configs/database/RepositoryTemplate";
+import {BaseEntity} from "../../../../configs/database/RepositoryTemplate";
 import { v4 as uuidv4 } from 'uuid';
+import {FavoriteProductsModel} from "../../../../core/use-cases/models/FavoriteProductsModel";
+import { ObjectId } from "mongodb";
 
-export class Products {
+export class Product {
     id: string;
     created_at: Date
 
@@ -14,13 +16,17 @@ export class Products {
 export class FavoriteProducts extends BaseEntity {
     uuid: string;
     ownerId: string;
-    products: Products[];
+    products: Product[];
 
-    constructor(ownerId: string, favorites:Products[] = [] ) {
+    constructor(favoriteProductsModel: FavoriteProductsModel ) {
         super();
         this.uuid = uuidv4()
-        this.ownerId = ownerId;
-        this.products = favorites;
+        this.ownerId = favoriteProductsModel.ownerId;
+        this._id = new ObjectId(favoriteProductsModel.id);
+        this.products = favoriteProductsModel.products
+            .map( product =>
+                new Product(product.id)
+            )
     }
     // convert(param: any): FavoriteProducts {
     //     if(!param.email || !param.name) throw new BusinessException("email and name are mandatory")
