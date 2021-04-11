@@ -61,8 +61,13 @@ export class MongoRepository<T extends BaseEntity> {
       });
   }
 
-  public findOne(query: FilterQuery<any>): Promise<any> {
-    return this.repositoryCollection.findOne(query);
+  public findOne(query: FilterQuery<any>): Promise<T> {
+    return this.repositoryCollection.findOne(query)
+        .then((result) => {
+          if(result)
+            return this.mapFunction(result)
+          return {}
+        })
   }
 
   public findOneById(_id: string): Promise<any> {
