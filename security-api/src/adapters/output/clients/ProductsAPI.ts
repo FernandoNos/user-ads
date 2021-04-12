@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const request = axios.create({
-    baseURL: 'http://localhost:3000/api',
+    baseURL: 'http://localhost:3002/api',
 });
 
 export async function getProductDetails(uuid: string): Promise<any> {

@@ -49,16 +49,23 @@ export class MongoRepository<T extends BaseEntity> {
     if (!query) throw Error(`Invalid entity received!`);
     if (!updatedValues) throw Error(`No values to be updated provided`);
     const updateValues = { $set: updatedValues };
-    // this.repositoryCollection.updateOne(query,updateValues)
-    //     .then(result => {
-    //       // tslint:disable-next-line:no-console
-    //       console.log(result)
-    //     })
+
     return this.repositoryCollection
       .findOneAndUpdate(query, updateValues, { upsert: false, returnOriginal:false })
       .then((result) => {
         return this.mapFunction(result);
       });
+  }
+
+  public updateOne(query: any, updatedValues: object): Promise<any> {
+    if (!query) throw Error(`Invalid entity received!`);
+    if (!updatedValues) throw Error(`No values to be updated provided`);
+
+    return this.repositoryCollection
+        .updateOne(query, updatedValues)
+        .then((result) => {
+          return result
+        });
   }
 
   public findOne(query: FilterQuery<T>): Promise<T> {

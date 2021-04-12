@@ -7,7 +7,7 @@ export class FavoritedProductsRepositoryImpl extends MongoRepository<FavoritePro
   constructor(dbConnection: Db) {
     super("favorited_products", dbConnection, FavoriteProductsModel.convert);
   }
-  async upsert(favoriteProductsModel: FavoriteProductsModel) : Promise<FavoriteProductsModel>{
+  async save(favoriteProductsModel: FavoriteProductsModel) : Promise<FavoriteProductsModel>{
     const userEntity = new FavoriteProducts(favoriteProductsModel)
     return super.create(userEntity)
   }
