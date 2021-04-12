@@ -7,7 +7,7 @@ export async function register(registerModel: UserModel){
     try {
         const dbUsers = await UsersRepository.findAll({name: registerModel.name, email: registerModel.email})
         if (!_.isEmpty(dbUsers)) throw new BusinessException("User already registered!")
-        const newUserDb = await UsersRepository.create(registerModel)
+        const newUserDb = await UsersRepository.save(registerModel)
         return newUserDb
     }catch(error){
         throw error

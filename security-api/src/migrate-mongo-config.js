@@ -1,9 +1,7 @@
 // In this file you can configure migrate-mongo
 const dotenv = require('dotenv')
-console.log(process.cwd())
-console.log(JSON.stringify(dotenv.config()))
+dotenv.config()
 const {MONGO_HOSTS} = process.env
-console.log(MONGO_HOSTS)
 const config = {
   mongodb: {
     // TODO Change (or review) the url to your MongoDB:

@@ -9,7 +9,8 @@ Este passo poderia ser feito no BFF, responsável pela comunicação com o front
  */
 export async function generateJWT(request: Request, response:Response){
     try {
-        const encrypted = encrypt(response.locals.user.uuid)
+        const { uuid, admin } = response.locals.user
+        const encrypted = encrypt(`${uuid}:${admin}`)
         response.send({token:signJWT(encrypted)})
     }catch(error){
         response.sendStatus(500)
@@ -20,12 +21,13 @@ export async function readJWT(request: Request, response:Response, next: NextFun
     try {
         const authorization = request.header('authorization')
         if(_.isEmpty(authorization)) return response.sendStatus(403)
-        const decoded = jwt.decode(authorization.replace(/^Bearer\s*/i,''))
+        const decoded = jwt.verify(authorization.replace(/^Bearer\s*/i,''), SECRET)
         // @ts-ignore
-        response.locals.user={uuid:decrypt(decoded.data)}
+        const userData = decrypt(decoded.data).split(':')
+        response.locals.user={uuid:userData[0], admin: userData[1] === 'true'}
         next()
     }catch(error){
-        response.sendStatus(403)
+        response.status(403).send(error.message)
     }
 }
 
