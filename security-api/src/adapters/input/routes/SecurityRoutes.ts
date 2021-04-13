@@ -14,4 +14,5 @@ router.delete("/user", [readJWT, deleteUser])
 router.get("/user", getUsers)
 
 router.delete("/user/:uuid", [readJWT, isAdmin, paramToLocals("user"),deleteUser])
+router.patch("/user/:uuid", [readJWT, isAdmin, paramToLocals("user"),updateUser])
 export default router
