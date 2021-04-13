@@ -1,4 +1,4 @@
-POST http://localhost:3000/api/product
+POST http://localhost:3002/api/product
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/api/product/18597ca7-e132-455a-b58e-c03704ff8aae
+GET http://localhost:3002/api/product/1f55d48c-4bda-4d39-81a1-5c2476f192b4
 Content-Type: application/json
 ###
 GET http://localhost:3000/api/product?page=3
