@@ -8,7 +8,7 @@ import * as UserModel from "../../../core/use-cases/models/UserModel";
 import * as UserLoginModel from "../../../core/use-cases/models/UserLoginModel";
 import {LoginRequestModel} from "./models/LoginRequestModel";
 import _ from 'lodash'
-debug('security-api:SecurityController');
+debug('users-api:SecurityController');
 
 export async function register(request: Request, response: Response){
     try {

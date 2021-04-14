@@ -7,7 +7,6 @@ import {getUsers,deleteUser, updateUser} from "../controllers/UsersController";
 const router = express.Router();
 
 router.use(readJWT)
-
 router.delete("/users/favorites/:uuid", deleteFavorite)
 router.post("/users/favorites", addFavorite)
 router.get("/users/favorites", getFavorites)

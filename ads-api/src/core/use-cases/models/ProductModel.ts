@@ -10,7 +10,7 @@ const ProductModelSchema = object().shape({
     title: string().required(),
     reviewScore: number().positive().required()
 });
-g
+
 export interface ProductModel extends TypeOf<typeof ProductModelSchema> {}
 
 export function build(params: any) : ProductModel{

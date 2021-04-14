@@ -4,7 +4,7 @@ import {debug} from "debug";
 import bodyParser from "body-parser";
 import {Database} from "./configs/database";
 dotenv.config()
-debug('security-api');
+debug('users-api');
 
 const app = express();
 const {PORT} = process.env;
