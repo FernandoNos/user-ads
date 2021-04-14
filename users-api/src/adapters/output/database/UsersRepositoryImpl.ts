@@ -18,11 +18,15 @@ export class UsersRepositoryImpl extends MongoRepository<User> {
   }
 
   public updateOne(query: any, updatedValues: object): Promise<UserModel> {
-    if (!updatedValues) throw Error(`No values to be updated provided`);
 
+    if (!updatedValues) throw Error(`No values to be updated provided`);
     const updateValues = { $set: updatedValues };
 
     return this.repositoryCollection.findOneAndUpdate(query, updateValues,{returnOriginal:false})
-        .then(result => convert(result.value))
+        .then(result => {
+              if (result.value)
+                return convert(result.value)
+              return undefined
+            })
   }
 }

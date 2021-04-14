@@ -29,10 +29,13 @@ export async function deleteFavoriteProduct(user_id: string, product_id: string)
     return FavoritedProductsRepository.removeFavorite(user_id, product_id)
 }
 
-export async function getFavoriteProducts(user_id: string){
-    return await FavoritedProductsRepository.findAll({ownerId: user_id})
+export async function getFavoriteProducts(userId: string){
+    return await FavoritedProductsRepository.findAll({ownerId: userId})
 }
 
+export async function deleteFavorite(userId: string){
+    FavoritedProductsRepository.delete({ownerId: userId})
+}
 
 async function isValidProductId(productId: string){
     return getProductDetails(productId)

@@ -53,8 +53,8 @@ export class MongoRepository<T extends BaseEntity> {
 
 
 
-  public delete (query: FilterQuery<any>, pagination?: Pagination) : void{
-    this.repositoryCollection.deleteOne(query)
+  public delete (query: FilterQuery<any>, pagination?: Pagination) : Promise<any>{
+    return this.repositoryCollection.deleteOne(query)
   }
 
   public find(query: FilterQuery<any>, pagination?: Pagination): Promise<T[]> {

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const request = axios.create({
-    baseURL: 'http://localhost:3002/api',
+    baseURL: 'http://ads-api.dev:3000/api',
 });
 
 export async function getProductDetails(uuid: string): Promise<any> {
@@ -13,6 +13,7 @@ export async function getProductDetails(uuid: string): Promise<any> {
             : []
         )
         .catch(error => {
+            console.error(error)
             return []
         })
 }
