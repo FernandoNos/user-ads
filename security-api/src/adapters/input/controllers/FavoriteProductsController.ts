@@ -4,9 +4,12 @@ import {
     deleteFavoriteProduct,
     getFavoriteProducts
 } from "../../../core/use-cases/UserFavoriteProductsUseCase";
+import {validateAddFavoriteProductRequest} from "./models/AddFavorteRequestModel";
 
 export async function addFavorite(request: Request, response: Response){
     try {
+        validateAddFavoriteProductRequest(request.body)
+
         const {productId} = request.body
         const userId = response.locals.user.uuid
 
