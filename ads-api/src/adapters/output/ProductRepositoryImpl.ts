@@ -9,5 +9,10 @@ export class ProductRepositoryImpl extends MongoRepository<Product> {
   save(productModel: ProductModel) : Promise<ProductModel>{
     const productEntity = Product.convert(productModel)
     return super.create(productEntity)
+        .then(entry => convert(entry))
+  }
+  findAll(queryFields: any, pagination?:any): Promise<ProductModel[]>{
+    return super.find(queryFields, pagination)
+        .then(entries => entries.map(entry => convert(entry)))
   }
 }

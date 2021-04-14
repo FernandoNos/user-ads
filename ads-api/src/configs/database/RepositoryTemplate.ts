@@ -19,7 +19,7 @@ export class MongoRepository<T extends BaseEntity> {
     this.repositoryCollection = this.repository.collection(this.collection);
   }
 
-  public create(entity: T): Promise<any> {
+  public create(entity: T): Promise<T> {
     return this.repositoryCollection.insertOne(entity).then((result) => {
       return result.ops[0];
     });
@@ -62,7 +62,7 @@ export class MongoRepository<T extends BaseEntity> {
     return this.repositoryCollection.findOne({ _id: oId });
   }
 
-  public findAll(query: FilterQuery<any>, pagination?: Pagination): Promise<any[]> {
+  public find(query: FilterQuery<any>, pagination?: Pagination): Promise<any[]> {
     const skipAndLimit = this.setPagination(pagination);
     const queryResult = this.repositoryCollection.find(query).skip(skipAndLimit[0]).limit(skipAndLimit[1]);
 
