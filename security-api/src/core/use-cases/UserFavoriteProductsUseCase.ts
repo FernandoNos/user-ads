@@ -1,5 +1,5 @@
 import {FavoritedProductsRepository } from "../../adapters/output/database";
-import {FavoriteProductsModel} from "./models/FavoriteProductsModel";
+import {build} from "./models/FavoriteProductsModel";
 import {getProductDetails} from "../../adapters/output/clients/ProductsAPI";
 import {BusinessException} from "../../exceptions/BusinessException";
 import _ from "lodash";
@@ -11,7 +11,7 @@ export async function addFavoriteProduct(userId: string, productId: string){
     const usersFavorites = await FavoritedProductsRepository.findAll({ownerId: userId})
 
     if(_.isEmpty(usersFavorites)){
-        const newFavoriteProducts = FavoriteProductsModel.build(userId, productId)
+        const newFavoriteProducts = build(userId, productId)
         const dbFavoriteProducts = await FavoritedProductsRepository.save(newFavoriteProducts)
         return dbFavoriteProducts
     }

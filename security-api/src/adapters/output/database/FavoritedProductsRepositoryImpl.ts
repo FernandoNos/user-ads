@@ -1,6 +1,6 @@
 import { Db } from "mongodb";
 import {MongoRepository} from "../../../configs/database/RepositoryTemplate";
-import { FavoriteProductsModel} from "../../../core/use-cases/models/FavoriteProductsModel";
+import { FavoriteProductsModel, convert} from "../../../core/use-cases/models/FavoriteProductsModel";
 import {FavoriteProducts, Product} from "./entities/FavoriteProducts";
 import {UserModel} from "../../../core/use-cases/models/UserModel";
 
@@ -11,12 +11,12 @@ export class FavoritedProductsRepositoryImpl extends MongoRepository<FavoritePro
   async save(favoriteProductsModel: FavoriteProductsModel) : Promise<FavoriteProductsModel>{
     const userEntity = new FavoriteProducts(favoriteProductsModel)
     return super.create(userEntity)
-        .then(result => FavoriteProductsModel.convert(result))
+        .then(result => convert(result))
   }
 
   async findAll(query: any, pagination?: any) : Promise<FavoriteProductsModel[]>{
     return super.find(query, pagination)
-        .then(entries => entries.map(entry => FavoriteProductsModel.convert(entry)))
+        .then(entries => entries.map(entry => convert(entry)))
   }
 
   async addFavorite(userId: string, productId: string) : Promise<FavoriteProductsModel>{
@@ -32,7 +32,7 @@ export class FavoritedProductsRepositoryImpl extends MongoRepository<FavoritePro
 
     return this.repositoryCollection
         .findOneAndUpdate(query, updatedValues, { upsert: false, returnOriginal: false })
-        .then(result => result.value?FavoriteProductsModel.convert(result.value):undefined)
+        .then(result => result.value?convert(result.value):undefined)
   }
   public removeFavorite(userId: string, productId: string): Promise<boolean> {
 

@@ -4,8 +4,8 @@ import * as RegistrationUseCase from '../../../core/use-cases/SecurityUseCase'
 import * as UserLoginUseCase from '../../../core/use-cases/SecurityUseCase'
 import * as UserActions from '../../../core/use-cases/UserUseCase'
 import {debug} from "debug";
-import {UserModel} from "../../../core/use-cases/models/UserModel";
-import {UserLoginModel} from "../../../core/use-cases/models/UserLoginModel";
+import * as UserModel from "../../../core/use-cases/models/UserModel";
+import * as UserLoginModel from "../../../core/use-cases/models/UserLoginModel";
 import {LoginRequestModel} from "./models/LoginRequestModel";
 import _ from 'lodash'
 debug('security-api:SecurityController');

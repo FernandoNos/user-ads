@@ -3,37 +3,28 @@ import {RuntimeException} from "../../../exceptions/RuntimeException";
 import {RegisterRequestModel} from "../../../adapters/input/controllers/models/RegisterRequestModel";
 import {User} from "../../../adapters/output/database/entities/User";
 
-const RegisterModelSchema = object().shape({
+const UserModelSchema = object().shape({
     name: string().required(),
     admin: bool(),
     uuid: string(),
     email: string().email().required(),
 });
 
-export interface RegisterModelInterface extends TypeOf<typeof RegisterModelSchema> {}
+export interface UserModel extends TypeOf<typeof UserModelSchema> {}
 
-export class UserModel {
-    name: string;
-    email: string;
-    uuid: string;
-    admin: boolean;
+export function build(params: RegisterRequestModel) : UserModel{
+    try {
+        return UserModelSchema.validateSync(params,{abortEarly: false})
+    }catch(error){
+        throw new RuntimeException(error?.errors)
+    }
+}
 
-    private constructor(name: string, email: string,uuid: string, admin : boolean = false) {
-        this.name = name;
-        this.email = email;
-        this.admin = admin;
-        this.uuid = uuid;
-    }
-
-    static build(params: RegisterRequestModel) : UserModel{
-        try {
-            const validated = RegisterModelSchema.validateSync(params,{abortEarly: false})
-            return new UserModel(validated.name, validated.email, validated.uuid, validated.admin)
-        }catch(error){
-            throw new RuntimeException(error?.errors)
-        }
-    }
-    static convert(user: User): UserModel {
-        return new UserModel(user.name, user.email, user.uuid,user.admin )
-    }
+export function convert(user: User): UserModel {
+    return {
+        name: user.name,
+        email:user.email,
+        admin: user.admin,
+        uuid: user.uuid
+    } as UserModel
 }

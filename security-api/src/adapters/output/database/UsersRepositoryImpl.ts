@@ -1,7 +1,7 @@
 import {Db, FilterQuery} from "mongodb";
 import {User} from "./entities/User";
 import {MongoRepository} from "../../../configs/database/RepositoryTemplate";
-import {UserModel} from "../../../core/use-cases/models/UserModel";
+import {UserModel, convert} from "../../../core/use-cases/models/UserModel";
 export class UsersRepositoryImpl extends MongoRepository<User> {
   constructor(dbConnection: Db) {
     super("users", dbConnection);
@@ -9,12 +9,12 @@ export class UsersRepositoryImpl extends MongoRepository<User> {
   async save(registerModel: UserModel) : Promise<UserModel>{
     const userEntity = new User(registerModel.name, registerModel.email)
     return super.create(userEntity)
-        .then(entry => UserModel.convert(entry))
+        .then(entry => convert(entry))
   }
 
   async findAll(query: any, pagination?: any) : Promise<UserModel[]>{
     return super.find(query, pagination)
-        .then(entries => entries.map(entry => UserModel.convert(entry)))
+        .then(entries => entries.map(entry => convert(entry)))
   }
 
   public updateOne(query: any, updatedValues: object): Promise<UserModel> {
@@ -23,6 +23,6 @@ export class UsersRepositoryImpl extends MongoRepository<User> {
     const updateValues = { $set: updatedValues };
 
     return this.repositoryCollection.findOneAndUpdate(query, updateValues,{returnOriginal:false})
-        .then(result => UserModel.convert(result.value))
+        .then(result => convert(result.value))
   }
 }

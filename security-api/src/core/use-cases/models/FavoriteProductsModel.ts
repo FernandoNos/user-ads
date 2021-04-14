@@ -1,45 +1,47 @@
 import {FavoriteProducts} from "../../../adapters/output/database/entities/FavoriteProducts";
 import { v4 as uuidv4 } from 'uuid';
+import {array, date, object, string, TypeOf} from "yup";
 
-export class Product {
-    id: string;
-    created_at: Date;
+const ProductModelSchema = object().shape({
+    id: string(),
+    created_at: date(),
+});
 
-    constructor(id: string, created_at: Date = new Date()) {
-        this.id = id;
-        this.created_at = created_at;
-    }
+const FavoriteProductsModelSchema = object().shape({
+    id: string(),
+    ownerId: string(),
+    uuid:string(),
+    products: array().of(ProductModelSchema)
+
+});
+
+export interface ProductModel extends TypeOf<typeof ProductModelSchema> {}
+export interface FavoriteProductsModel extends TypeOf<typeof FavoriteProductsModelSchema> {}
+
+
+export function build(ownerId: string, productId: string) : FavoriteProductsModel{
+    return {
+        ownerId: ownerId,
+        products: [{
+            id: productId
+        }]
+    } as FavoriteProductsModel
 }
 
-export class FavoriteProductsModel {
-    id: string;
-    ownerId: string;
-    uuid: string;
-    products: Product[];
-
-
-    private constructor(ownerId: string, products: Product[]) {
-        this.ownerId = ownerId;
-        this.uuid = uuidv4();
-        this.products = products;
-    }
-
-    static build(ownerId: string, productId: string){
-        return new FavoriteProductsModel(ownerId, [new Product(productId)])
-    }
-    static convert(favoritedProduct: FavoriteProducts): FavoriteProductsModel{
-        return {
+export function convert(favoritedProduct: FavoriteProducts): FavoriteProductsModel{
+    return {
             id: favoritedProduct.uuid,
             ownerId: favoritedProduct.ownerId,
             uuid: favoritedProduct.uuid,
-            products: favoritedProduct.products.map(
+        // @ts-ignore
+        products: favoritedProduct.products.map(
                 product => {
                     return {
                         id: product.id,
                         created_at: product.created_at
                     }
                 })
-        }
     }
-}
+    }
+
 

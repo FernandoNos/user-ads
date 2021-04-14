@@ -9,26 +9,19 @@ const UserLoginModelSchema = object().shape({
     email: string().email().required(),
 });
 
-export interface UserLoginModelInterface extends TypeOf<typeof UserLoginModelSchema> {}
+export interface UserLoginModel extends TypeOf<typeof UserLoginModelSchema> {}
 
-export class UserLoginModel {
-    name: string;
-    email: string;
-
-    private constructor(name: string, email: string) {
-        this.name = name;
-        this.email = email;
-    }
-
-    static build(params: LoginRequestModel) : UserLoginModel{
+export function build(params: LoginRequestModel) : UserLoginModel{
         try {
-            const validated = UserLoginModelSchema.validateSync(params,{abortEarly: false})
-            return new UserLoginModel(validated.name, validated.email)
+            return UserLoginModelSchema.validateSync(params,{abortEarly: false})
         }catch(error){
             throw new RuntimeException(error?.errors)
         }
     }
-    static convert(user: User): UserLoginModel {
-        return new UserLoginModel(user.name, user.email)
-    }
+
+export function convert(user: User): UserLoginModel {
+    return {
+        name: user.name,
+        email: user.email
+    } as UserLoginModel
 }
