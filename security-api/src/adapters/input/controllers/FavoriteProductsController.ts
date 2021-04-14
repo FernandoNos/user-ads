@@ -7,10 +7,12 @@ import {
 
 export async function addFavorite(request: Request, response: Response){
     try {
-        const {product_id} = request.body
-        const user_id = response.locals.user.uuid
+        const {productId} = request.body
+        const userId = response.locals.user.uuid
 
-        response.send(await addFavoriteProduct(user_id, product_id))
+        if(!productId) return response.status(422).send({message:"productId is mandatory"})
+
+        response.send(await addFavoriteProduct(userId, productId))
     }catch(error){
         response.status(error.status ?? 500).send({message: error.message})
     }

@@ -41,7 +41,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiXHUwMDA3X
 Content-Type: application/json
 
 {
-  "product_id": "b890d511-46f1-4aca-bf6b-b324fbfadecc"
+  "productId": "b890d511-46f1-4aca-bf6b-b324fbfadecc"
 }
 ###
 DELETE http://localhost:3003/api/users/favorites/b890d511-46f1-4aca-bf6b-b324fbfadecc
