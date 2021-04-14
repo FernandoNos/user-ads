@@ -1,10 +1,9 @@
 import express from "express";
 import { readJWT} from "../middlewares/JWTMiddleware";
 import {addFavorite, deleteFavorite, getFavorites} from "../controllers/FavoriteProductsController";
-import {deleteUser, updateUser} from "../controllers/SecurityController";
 import {isAdmin} from "../middlewares/IsAdminMiddleware";
 import {paramToLocals} from "../middlewares/ParamToLocals";
-import {getUsers} from "../controllers/UsersController";
+import {getUsers,deleteUser, updateUser} from "../controllers/UsersController";
 const router = express.Router();
 
 router.use(readJWT)

@@ -1,6 +1,5 @@
 import {FavoritedProductsRepository } from "../../adapters/output/database";
 import {FavoriteProductsModel} from "./models/FavoriteProductsModel";
-import {Product} from "../../adapters/output/database/entities/FavoriteProducts";
 import {getProductDetails} from "../../adapters/output/clients/ProductsAPI";
 import {BusinessException} from "../../exceptions/BusinessException";
 import _ from "lodash";

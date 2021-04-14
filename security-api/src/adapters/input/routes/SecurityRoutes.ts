@@ -1,5 +1,5 @@
 import express from "express";
-import {register, login, updateUser, deleteUser} from "../controllers/SecurityController";
+import {register, login} from "../controllers/SecurityController";
 import {generateJWT, readJWT} from "../middlewares/JWTMiddleware";
 const router = express.Router();
 
