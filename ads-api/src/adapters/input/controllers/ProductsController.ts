@@ -6,8 +6,8 @@ import _ from 'lodash'
 
 export async function get(request: Request, response: Response){
     try {
-        const product = await getProducts(request.params,request.query)
-        response.send(product)
+        getProducts(request.params,request.query)
+            .then(product => response.send(product))
     }catch(error){
         response.status(error.status ?? 500).send(error.message)
     }
@@ -16,7 +16,9 @@ export async function get(request: Request, response: Response){
 export async function create(request: Request, response: Response){
     try {
         const productCreationRequest = validateProductCreationRequest(request.body)
-        response.send(await createProduct(build(productCreationRequest)))
+        createProduct(build(productCreationRequest))
+            .then(result => response.send(result))
+        response.send()
     }catch(error){
         response.status(error.status ?? 500).send(error.message)
     }

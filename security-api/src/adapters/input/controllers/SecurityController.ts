@@ -47,7 +47,6 @@ export async function updateUser(request: Request, response: Response, next: Nex
 export async function deleteUser(request: Request, response: Response, next: NextFunction){
     try {
         response.send(await UserActions.deleteUser(response.locals.user.uuid))
-
     }catch(error){
         debug(`Error requesting registration ${error.message} ${error.stackTrace}`)
         response.status(error.status ?? 500).send({message: error.message})
