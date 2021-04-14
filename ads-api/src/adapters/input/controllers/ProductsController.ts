@@ -2,7 +2,6 @@ import {Request, Response} from "express";
 import {validateProductCreationRequest} from './models/ProductCreationRequestModel'
 import {getProducts, createProduct} from "../../../core/use-cases/ProductUseCase";
 import {build} from "../../../core/use-cases/models/ProductModel";
-import _ from 'lodash'
 
 export async function get(request: Request, response: Response){
     try {
