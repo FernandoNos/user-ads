@@ -1,8 +1,8 @@
 import express from "express";
 import SecurityRoutes from "./routes/SecurityRoutes";
-import FavoriteProductsRoutes from "./routes/FavoriteProductsRoutes";
+import UsersRoutes from "./routes/UsersRoutes";
 const router = express.Router();
 
 router.use("/", SecurityRoutes);
-router.use("/",FavoriteProductsRoutes)
+router.use("/",UsersRoutes)
 export {router}

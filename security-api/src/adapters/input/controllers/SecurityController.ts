@@ -1,8 +1,8 @@
 import {NextFunction, Request, Response} from 'express'
 import {RegisterRequestModel} from "./models/RegisterRequestModel";
-import * as RegistrationUseCase from '../../../core/use-cases/UserRegistrationUseCase'
-import * as UserLoginUseCase from '../../../core/use-cases/UserLoginUseCase'
-import * as UserActions from '../../../core/use-cases/UserActionsUseCase'
+import * as RegistrationUseCase from '../../../core/use-cases/SecurityUseCase'
+import * as UserLoginUseCase from '../../../core/use-cases/SecurityUseCase'
+import * as UserActions from '../../../core/use-cases/UserUseCase'
 import {debug} from "debug";
 import {UserModel} from "../../../core/use-cases/models/UserModel";
 import {UserLoginModel} from "../../../core/use-cases/models/UserLoginModel";

@@ -1,6 +1,5 @@
 import {Request, Response} from 'express';
-import * as UserActionsUseCase from '../../../core/use-cases/UserActionsUseCase'
-
+import * as UserActionsUseCase from '../../../core/use-cases/UserUseCase'
 
 export async function getUsers(request: Request, response: Response){
     try{
