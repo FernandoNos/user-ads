@@ -26,15 +26,8 @@ export async function addFavoriteProduct(userId: string, productId: string){
 }
 
 export async function deleteFavoriteProduct(user_id: string, product_id: string){
-
     await isValidProductId(product_id)
-
-    const response = await FavoritedProductsRepository.updateOne({ownerId: user_id},{
-        $pull:{
-            "products": { "id": product_id}
-        }
-    })
-    return response
+    return FavoritedProductsRepository.removeFavorite(user_id, product_id)
 }
 
 export async function getFavoriteProducts(user_id: string){

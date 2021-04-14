@@ -7,8 +7,8 @@ export async function updateUser(userData: UserInterface) : Promise<UserModel>{
     return UsersRepository.updateOne({uuid},data)
 }
 
-export async function getUsers(){
-    return UsersRepository.find({})
+export async function getUsers(params: any){
+    return UsersRepository.find({},params)
 }
 
 export async function deleteUser(uuid: string){

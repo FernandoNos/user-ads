@@ -29,7 +29,7 @@ export class FavoriteProductsModel {
     }
     static convert(favoritedProduct: FavoriteProducts): FavoriteProductsModel{
         return {
-            id: favoritedProduct._id,
+            id: favoritedProduct.uuid,
             ownerId: favoritedProduct.ownerId,
             uuid: favoritedProduct.uuid,
             products: favoritedProduct.products.map(

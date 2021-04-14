@@ -33,6 +33,6 @@ export async function readJWT(request: Request, response:Response, next: NextFun
 
 function signJWT(data: string){
     return jwt.sign({ data }, SECRET, {
-        expiresIn: 300 // expires in 5min
+        expiresIn: 3000 // expires in 5min
     });
 }

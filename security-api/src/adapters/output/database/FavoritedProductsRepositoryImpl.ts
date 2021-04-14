@@ -27,12 +27,21 @@ export class FavoritedProductsRepositoryImpl extends MongoRepository<FavoritePro
     } )
   }
 
-  public updateOne(query: any, updatedValues: object): Promise<any> {
+  public updateOne(query: any, updatedValues: object): Promise<FavoriteProductsModel> {
     if (!updatedValues) throw Error(`No values to be updated provided`);
 
-    const updateValues = { $set: updatedValues };
+    return this.repositoryCollection
+        .findOneAndUpdate(query, updatedValues, { upsert: false, returnOriginal: false })
+        .then(result => result.value?FavoriteProductsModel.convert(result.value):undefined)
+  }
+  public removeFavorite(userId: string, productId: string): Promise<boolean> {
 
     return this.repositoryCollection
-        .findOneAndUpdate(query, updateValues, { upsert: false })
+        .updateOne({ownerId: userId},{
+          $pull:{
+            "products": { "id": productId}
+          }
+        })
+        .then(result => result.modifiedCount > 0 )
   }
 }

@@ -6,20 +6,33 @@ import {
 } from "../../../core/use-cases/UserFavoriteProductsUseCase";
 
 export async function addFavorite(request: Request, response: Response){
-    const { product_id } = request.body
-    const user_id = response.locals.user.uuid
+    try {
+        const {product_id} = request.body
+        const user_id = response.locals.user.uuid
 
-    response.send(await addFavoriteProduct(user_id, product_id))
+        response.send(await addFavoriteProduct(user_id, product_id))
+    }catch(error){
+        response.status(error.status ?? 500).send({message: error.message})
+    }
 }
 
 export async function deleteFavorite(request: Request, response: Response){
-    const { uuid } = request.params
-    const user_id = response.locals.user.uuid
+    try {
+        const {uuid} = request.params
+        const user_id = response.locals.user.uuid
 
-    response.send(await deleteFavoriteProduct(user_id, uuid))
+        await deleteFavoriteProduct(user_id, uuid)
+        response.send()
+    }catch(error){
+        response.status(error.status ?? 500).send(error.message)
+    }
 }
 
 export async function getFavorites(request: Request, response: Response){
-    const user_id = response.locals.user.uuid
-    response.send(await getFavoriteProducts(user_id))
+    try {
+        const user_id = response.locals.user.uuid
+        response.send(await getFavoriteProducts(user_id))
+    }catch(error){
+        response.status(error.status ?? 500).send(error.message)
+    }
 }

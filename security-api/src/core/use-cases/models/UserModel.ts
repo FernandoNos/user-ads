@@ -34,6 +34,6 @@ export class UserModel {
         }
     }
     static convert(user: User): UserModel {
-        return new UserModel(user.name, user.email, user.uuid)
+        return new UserModel(user.name, user.email, user.uuid,user.admin )
     }
 }

@@ -9,11 +9,14 @@ const router = express.Router();
 //APIs for users to register and handle their own data
 router.post("/register", register);
 router.post("/login",[login,generateJWT])
-router.patch("/user", [readJWT, updateUser])
-router.delete("/user", [readJWT, deleteUser])
+router.use(readJWT)
+router.patch("/user", updateUser)
+router.delete("/user", deleteUser)
+
+router.use(isAdmin)
+//APIs for admins to update and delete users
+router.delete("/user/:uuid", [paramToLocals("user"),deleteUser])
+router.patch("/user/:uuid", [paramToLocals("user"),updateUser])
 router.get("/user", getUsers)
 
-//APIs for admins to update and delete users
-router.delete("/user/:uuid", [readJWT, isAdmin, paramToLocals("user"),deleteUser])
-router.patch("/user/:uuid", [readJWT, isAdmin, paramToLocals("user"),updateUser])
 export default router
