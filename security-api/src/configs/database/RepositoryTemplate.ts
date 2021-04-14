@@ -3,7 +3,7 @@ import { id } from "mongodb-typescript";
 
 // tslint:disable-next-line:max-classes-per-file
 export class BaseEntity {
-  @id _id: ObjectId;
+  @id _id: string;
 }
 
 // tslint:disable-next-line:max-classes-per-file
@@ -11,20 +11,17 @@ export class MongoRepository<T extends BaseEntity> {
   collection: string;
   repository: Db;
   repositoryCollection: Collection;
-  // tslint:disable-next-line:ban-types
-  mapFunction: Function ;
 
   // tslint:disable-next-line:ban-types
-  constructor(collection: string, connection: Db, mapFunction: Function = (param: any) => param) {
+  constructor(collection: string, connection: Db) {
     this.collection = collection;
     this.repository = connection;
     this.repositoryCollection = this.repository.collection(this.collection);
-    this.mapFunction = mapFunction;
   }
 
-  public create(entity: T): Promise<any> {
+  public create(entity: T): Promise<T> {
     return this.repositoryCollection.insertOne(entity).then((result) => {
-      return this.mapFunction(result.ops[0]);
+      return result.ops[0];
     });
   }
 
@@ -39,54 +36,28 @@ export class MongoRepository<T extends BaseEntity> {
     const updateValues = { $set: fields };
 
     return this.repositoryCollection
-      .findOneAndUpdate(query, updateValues, { upsert: true, returnOriginal: false })
-      .then((result) => {
-        return result.value;
-      });
-  }
-
-  public update(query: any, updatedValues: object): Promise<any> {
-    if (!query) throw Error(`Invalid entity received!`);
-    if (!updatedValues) throw Error(`No values to be updated provided`);
-    const updateValues = { $set: updatedValues };
-
-    return this.repositoryCollection
-      .findOneAndUpdate(query, updateValues, { upsert: false, returnOriginal:false })
-      .then((result) => {
-        return this.mapFunction(result);
-      });
-  }
-
-  public updateOne(query: any, updatedValues: object): Promise<any> {
-    if (!query) throw Error(`Invalid entity received!`);
-    if (!updatedValues) throw Error(`No values to be updated provided`);
-
-    return this.repositoryCollection
-        .updateOne(query, updatedValues)
+        .findOneAndUpdate(query, updateValues, { upsert: true, returnOriginal: false })
         .then((result) => {
-          return result
+          return result.value;
         });
   }
 
-  public findOne(query: FilterQuery<T>): Promise<T> {
-    return this.repositoryCollection.findOne(query)
-        .then((result) => {
-          if(result)
-            return this.mapFunction(result)
-          return {} as T
-        })
+  public update(query: any, updatedValues: object): Promise<any> {
+    if (!updatedValues) throw Error(`No values to be updated provided`);
+
+    const updateValues = { $set: updatedValues };
+
+    return this.repositoryCollection
+        .findOneAndUpdate(query, updateValues, { upsert: false })
   }
 
-  public findOneById(_id: string): Promise<any> {
-    const oId = new ObjectId(_id);
-    return this.repositoryCollection.findOne({ _id: oId });
-  }
+
 
   public delete (query: FilterQuery<any>, pagination?: Pagination) : void{
     this.repositoryCollection.deleteOne(query)
   }
 
-  public findAll(query: FilterQuery<any>, pagination?: Pagination): Promise<any[]> {
+  public find(query: FilterQuery<any>, pagination?: Pagination): Promise<T[]> {
     const skipAndLimit = this.setPagination(pagination);
     const queryResult = this.repositoryCollection.find(query).skip(skipAndLimit[0]).limit(skipAndLimit[1]);
 
@@ -98,7 +69,6 @@ export class MongoRepository<T extends BaseEntity> {
       return resolve(result);
     });
   }
-
   setPagination(pagination?: Pagination): number[] {
     const limit = pagination && pagination.limit && pagination.limit > 0 ? pagination.limit : 10;
     const page = pagination && pagination.page && pagination.page > 0 ? pagination.page - 1 : 0;
@@ -106,6 +76,7 @@ export class MongoRepository<T extends BaseEntity> {
     return [skip, limit];
   }
 }
+
 
 interface Pagination {
   page?: number;

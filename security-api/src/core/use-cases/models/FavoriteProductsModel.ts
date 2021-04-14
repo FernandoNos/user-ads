@@ -29,7 +29,7 @@ export class FavoriteProductsModel {
     }
     static convert(favoritedProduct: FavoriteProducts): FavoriteProductsModel{
         return {
-            id: favoritedProduct._id.toHexString(),
+            id: favoritedProduct._id,
             ownerId: favoritedProduct.ownerId,
             uuid: favoritedProduct.uuid,
             products: favoritedProduct.products.map(

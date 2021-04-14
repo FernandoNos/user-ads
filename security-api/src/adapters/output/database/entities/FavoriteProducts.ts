@@ -22,14 +22,6 @@ export class FavoriteProducts extends BaseEntity {
         super();
         this.uuid = uuidv4()
         this.ownerId = favoriteProductsModel.ownerId;
-        this._id = new ObjectId(favoriteProductsModel.id);
-        this.products = favoriteProductsModel.products
-            .map( product =>
-                new Product(product.id)
-            )
+        this.products = favoriteProductsModel.products.map( product =>new Product(product.id))
     }
-    // convert(param: any): FavoriteProducts {
-    //     if(!param.email || !param.name) throw new BusinessException("email and name are mandatory")
-    //     return new FavoriteProducts(param.name, param.email)
-    // }
 }
