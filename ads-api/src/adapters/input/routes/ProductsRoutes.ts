@@ -5,9 +5,9 @@ import {isAdmin} from "../middlewares/IsAdminMiddleware";
 
 const router = express.Router();
 
-router.get("/",ProductsController.getProducts)
-router.get("/:uuid", ProductsController.getProducts)
+router.get("/",ProductsController.get)
+router.get("/:uuid", ProductsController.get)
 
-router.post("/", [readJWT,isAdmin,ProductsController.createProduct])
+router.post("/", [readJWT,isAdmin,ProductsController.create])
 
 export {router}

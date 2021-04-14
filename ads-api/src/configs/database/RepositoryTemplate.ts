@@ -1,7 +1,6 @@
 import { Collection, Db, FilterQuery, MongoClient, ObjectId } from "mongodb";
 import { id } from "mongodb-typescript";
 
-// tslint:disable-next-line:max-classes-per-file
 export class BaseEntity {
   @id _id: string;
 }
@@ -12,7 +11,6 @@ export class MongoRepository<T extends BaseEntity> {
   repository: Db;
   repositoryCollection: Collection;
 
-  // tslint:disable-next-line:ban-types
   constructor(collection: string, connection: Db) {
     this.collection = collection;
     this.repository = connection;
