@@ -12,7 +12,8 @@ export async function addFavorite(request: Request, response: Response){
 
         if(!productId) return response.status(422).send({message:"productId is mandatory"})
 
-        response.send(await addFavoriteProduct(userId, productId))
+        const result = await addFavoriteProduct(userId, productId)
+        response.send(result)
     }catch(error){
         response.status(error.status ?? 500).send({message: error.message})
     }
@@ -33,7 +34,8 @@ export async function deleteFavorite(request: Request, response: Response){
 export async function getFavorites(request: Request, response: Response){
     try {
         const user_id = response.locals.user.uuid
-        response.send(await getFavoriteProducts(user_id))
+        const result = await getFavoriteProducts(user_id)
+        response.send(result)
     }catch(error){
         response.status(error.status ?? 500).send(error.message)
     }
