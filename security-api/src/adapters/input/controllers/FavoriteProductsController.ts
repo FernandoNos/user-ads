@@ -8,9 +8,8 @@ import {validateAddFavoriteProductRequest} from "./models/AddFavorteRequestModel
 
 export async function addFavorite(request: Request, response: Response){
     try {
-        validateAddFavoriteProductRequest(request.body)
 
-        const {productId} = request.body
+        const {productId} = validateAddFavoriteProductRequest(request.body)
         const userId = response.locals.user.uuid
 
         if(!productId) return response.status(422).send({message:"productId is mandatory"})
@@ -25,9 +24,9 @@ export async function addFavorite(request: Request, response: Response){
 export async function deleteFavorite(request: Request, response: Response){
     try {
         const {uuid} = request.params
-        const user_id = response.locals.user.uuid
+        const userId = response.locals.user.uuid
 
-        await deleteFavoriteProduct(user_id, uuid)
+        await deleteFavoriteProduct(userId, uuid)
         response.send()
     }catch(error){
         response.status(error.status ?? 500).send(error.message)
