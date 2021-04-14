@@ -1,5 +1,6 @@
 POST http://localhost:3002/api/product
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiI0jColdTw4d4SsKewoVcXMKkfjfDlFvDgcK7QcOTwo4jScKZwrHDp3HCu8OlM8OCw6FTwrs1wo7CiMKNw5VuwrDDvsKdKCtCS8KHXHUwMDEzPj4-dsKmZMKXwp4mwqN9woTCjcOfLUJ-w5VcIsOTXHUwMDAwKcKUYU3Cq8O4w696XHUwMDAzw7PCv8OxMWduwrXChMKTScKoOcO1TFx1MDAxYsKtw7DCsMKjdcO2MjfCiTFcdTAwMDHDu0LDqmrDlcK1wq1cdTAwMWHDnlx1MDAwMHvDuFx1MDAxYsK8RcKkXHUwMDAyfMK_YsO6fsOdXHUwMDAxwqHCm8Knw4fCgCNcdTAwMDBcYsO2fMOuw7M2RsOSw6FCXklmesKuw4PCqMOfJVxuN8OKw7rCtMONwrpcdTAwMWFcdTAwMDNow5TDtcKpw6bCgsKPw7XCpMKVXHRKXHUwMDBlw5QgwrFMw5nDu8K-PEvDtTrDplx1MDAxNMK5KsOiQcKWw7onXCLDqMKiwrrDtVxiUkpcImLClsKYR8OZTDzDvcKDfcKaw5hNM1x1MDAxZDnDp1VcdTAwMGLDt8KIwq3Ch8KEw5HCncK5wp1eJcOHJcKBw6HCpVXDlSpcdTAwMTY5w4xccipRwovCrHJwwpHDrSIsImlhdCI6MTYxODM1ODY3NSwiZXhwIjoxNjE4MzU4OTc1fQ.M07SON9KK2--fSvyGMMWtea_9zZUGedyu32QscGAzpM
 
 {
   "price": 132,
@@ -10,8 +11,8 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3002/api/product/1f55d48c-4bda-4d39-81a1-5c2476f192b4
+GET http://localhost:3002/api/product/974f4171-a104-4eb5-a64d-f96273da061e
 Content-Type: application/json
 ###
-GET http://localhost:3000/api/product?page=3
+GET http://localhost:3002/api/product
 Content-Type: application/json

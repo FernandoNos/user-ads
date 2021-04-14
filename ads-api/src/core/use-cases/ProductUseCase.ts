@@ -1,4 +1,4 @@
-import {ProductModel} from "./models/ProductModel";
+import {ProductModel, convert} from "./models/ProductModel";
 import {ProductRepository} from "../../adapters/output";
 
 export async function handleProductCreationRequest(productModel: ProductModel) : Promise<ProductModel>{
@@ -6,5 +6,6 @@ export async function handleProductCreationRequest(productModel: ProductModel) :
 }
 
 export async function findProducts(queryFields: any, pagination?:any) :Promise<ProductModel[]> {
-    return await ProductRepository.findAll(queryFields,pagination)
+    return ProductRepository.findAll(queryFields,pagination)
+        .then(products => products.map(product => convert(product)))
 }

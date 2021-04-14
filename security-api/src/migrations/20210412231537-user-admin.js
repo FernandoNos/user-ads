@@ -5,7 +5,7 @@ module.exports = {
     return db.collection("users").insert({
       "uuid":v4(),
       "name":"admin",
-      "email":"admin",
+      "email":"admin@admin.com",
       "admin":true,
       created_at: new Date(),
       updated_at: new Date()
@@ -13,6 +13,6 @@ module.exports = {
   },
 
   async down(db, client) {
-    return db.collection("users").remove({admin:true})
+    return db.collection("users").deleteOne({admin:true})
   }
 };

@@ -6,19 +6,7 @@ import _ from 'lodash'
 
 export async function getProducts(request: Request, response: Response){
     try {
-        const product = await findProducts({},request.query)
-        if(_.isEmpty(product)) return response.sendStatus(404)
-        response.send(product)
-    }catch(error){
-        response.status(error.status ?? 500).send(error.message)
-    }
-}
-
-export async function getProduct(request: Request, response: Response){
-    try {
-        const {uuid} = request.params
-        const product = await findProducts({uuid})
-        if(_.isEmpty(product)) return response.sendStatus(404)
+        const product = await findProducts(request.params,request.query)
         response.send(product)
     }catch(error){
         response.status(error.status ?? 500).send(error.message)

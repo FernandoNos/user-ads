@@ -11,20 +11,17 @@ export class MongoRepository<T extends BaseEntity> {
   collection: string;
   repository: Db;
   repositoryCollection: Collection;
-  // tslint:disable-next-line:ban-types
-  mapFunction: Function ;
 
   // tslint:disable-next-line:ban-types
-  constructor(collection: string, connection: Db, mapFunction: Function = (param: any) => param) {
+  constructor(collection: string, connection: Db) {
     this.collection = collection;
     this.repository = connection;
     this.repositoryCollection = this.repository.collection(this.collection);
-    this.mapFunction = mapFunction;
   }
 
   public create(entity: T): Promise<any> {
     return this.repositoryCollection.insertOne(entity).then((result) => {
-      return this.mapFunction(result.ops[0]);
+      return result.ops[0];
     });
   }
 
@@ -54,9 +51,6 @@ export class MongoRepository<T extends BaseEntity> {
 
     return this.repositoryCollection
         .findOneAndUpdate(query, updateValues, { upsert: true })
-        .then((result) => {
-          return this.mapFunction(result);
-        });
   }
 
   public findOne(query: FilterQuery<any>): Promise<any> {
@@ -75,7 +69,7 @@ export class MongoRepository<T extends BaseEntity> {
     return new Promise(async (resolve, rejects) => {
       const result: any[] = [];
       while (await queryResult.hasNext()) {
-        result.push(this.mapFunction(await queryResult.next()));
+        result.push(await queryResult.next());
       }
       return resolve(result);
     });

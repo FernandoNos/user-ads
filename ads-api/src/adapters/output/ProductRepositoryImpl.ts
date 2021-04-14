@@ -4,7 +4,7 @@ import {Product} from "./entities/Product";
 import {convert, ProductModel} from "../../core/use-cases/models/ProductModel";
 export class ProductRepositoryImpl extends MongoRepository<Product> {
   constructor(dbConnection: Db) {
-    super("products", dbConnection, convert);
+    super("products", dbConnection);
   }
   save(productModel: ProductModel) : Promise<ProductModel>{
     const productEntity = Product.convert(productModel)
