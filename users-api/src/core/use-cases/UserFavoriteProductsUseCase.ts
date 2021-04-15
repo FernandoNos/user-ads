@@ -1,10 +1,10 @@
 import {FavoritedProductsRepository } from "../../adapters/output/database";
-import {build} from "./models/FavoriteProductsModel";
+import {build, FavoriteProductsModel} from "./models/FavoriteProductsModel";
 import {getProductDetails} from "../../adapters/output/clients/ProductsAPI";
 import {BusinessException} from "../../exceptions/BusinessException";
 import _ from "lodash";
 
-export async function addFavoriteProduct(userId: string, productId: string){
+export async function addFavoriteProduct(userId: string, productId: string) : Promise<FavoriteProductsModel>{
 
     await isValidProductId(productId)
 
