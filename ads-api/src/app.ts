@@ -1,10 +1,8 @@
 import dotenv from 'dotenv'
 import express from 'express';
-import {debug} from "debug";
 import bodyParser from "body-parser";
 import {Database} from "./configs/database";
 dotenv.config()
-debug('security-api');
 import morgan from 'morgan'
 
 const app = express();
@@ -17,11 +15,11 @@ const {PORT} = process.env;
     app.use(morgan('combined'))
     app.use(`/api`, require('./adapters/input').router);
     app.listen(PORT, () => {
-        debug.log(`server is listening on ${PORT}`);
+        console.log(`server is listening on ${PORT}`);
     });
 })()
     .catch(error => {
-        debug(`Error starting up application : ${error.message}`)
+        console.error(`Error starting up application : ${error.message}`)
         process.exit(0)
     })
 

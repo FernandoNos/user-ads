@@ -1,6 +1,4 @@
 import { Db, MongoClient } from "mongodb";
-import {debug} from 'debug'
-debug('configs_old:mongo');
 
 export class Database {
   getDbConenction(): Promise<Db | null> {
@@ -11,11 +9,11 @@ export class Database {
 
     return MongoClient.connect(URL, { useUnifiedTopology: true })
       .then((db) => {
-        debug.log(`MongoDb: Success connecting to db`);
+        console.log(`MongoDb: Success connecting to db`);
         return db.db('mongo');
       })
       .catch((error) => {
-        debug.log(`MongoDb: Error connecting to db ${error} ${error.message ? error.message : ""}`);
+        console.error(`MongoDb: Error connecting to db ${error} ${error.message ? error.message : ""}`);
         throw error
       });
   }
