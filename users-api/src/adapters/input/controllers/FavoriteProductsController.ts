@@ -28,6 +28,7 @@ export async function deleteFavorite(request: Request, response: Response){
         await deleteFavoriteProduct(userId, uuid)
         response.send()
     }catch(error){
+        console.error(`Error deleting favorite ${response.locals.user.uuid} ${request.params["uuid"]} - ${error.message} ${error.stackTrace}`)
         response.status(error.status ?? 500).send(error.message)
     }
 }
@@ -38,6 +39,7 @@ export async function getFavorites(request: Request, response: Response){
         const result = await getFavoriteProducts(user_id)
         response.send(result)
     }catch(error){
+        console.error(`Error retrieving favorites ${response.locals.user.uuid} - error ${error.message} ${error.stackTrace}`)
         response.status(error.status ?? 500).send(error.message)
     }
 }

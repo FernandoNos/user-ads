@@ -2,13 +2,13 @@ import {NextFunction, Request, Response} from 'express';
 import * as UserActionsUseCase from '../../../core/use-cases/UserUseCase'
 import _ from "lodash";
 import * as UserActions from "../../../core/use-cases/UserUseCase";
-import {debug} from "debug";
 
 export async function getUsers(request: Request, response: Response){
     try{
         const result = await UserActionsUseCase.getUsers(request.query)
         return response.send(result)
     }catch (error){
+        console.error(`Error getting users ${error.message} ${error.stackTrace}`)
         response.status(error.status ?? 500).send(error.message)
     }
 }
@@ -20,7 +20,7 @@ export async function updateUser(request: Request, response: Response, next: Nex
         if(!result) response.status(404).send()
         response.send()
     }catch(error){
-        debug(`Error requesting registration ${error.message} ${error.stackTrace}`)
+        console.error(`Error requesting registration ${error.message} ${error.stackTrace}`)
         response.status(error.status ?? 500).send({message: error.message})
     }
 }
@@ -29,7 +29,7 @@ export async function deleteUser(request: Request, response: Response, next: Nex
         await UserActions.deleteUser(response.locals.user.uuid)
         response.send()
     }catch(error){
-        debug(`Error requesting registration ${error.message} ${error.stackTrace}`)
+        console.error(`Error requesting registration ${error.message} ${error.stackTrace}`)
         response.status(error.status ?? 500).send({message: error.message})
     }
 }
