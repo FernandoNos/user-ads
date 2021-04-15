@@ -14,12 +14,13 @@ describe("User actions", function() {
             const addFavorite_stub = sinon.stub(FavoritedProductsRepository, "addFavorite").returns(Promise.resolve(UPDATED_FAVORITE_PRODUCT_MODEL))
             const saveFavorite_stub = sinon.stub(FavoritedProductsRepository, "save").returns(Promise.resolve(UPDATED_FAVORITE_PRODUCT_MODEL))
             const getProductDetails_stub = sinon.stub(ProductsAPI, "getProductDetails").returns(Promise.resolve({id: "213"}))
-            await addFavoriteProduct('123', 'abc')
+            const result = await addFavoriteProduct('123', 'abc')
 
             expect(findAll_stub.calledOnce).to.be.true
             expect(addFavorite_stub.calledOnce).to.be.true
             expect(getProductDetails_stub.calledOnce).to.be.true
             expect(saveFavorite_stub.calledOnce).to.be.false
+            expect(result).to.be.equal(UPDATED_FAVORITE_PRODUCT_MODEL)
         });
     })
 })
