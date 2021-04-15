@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && cp ./.env dist/.env && node dist/app.js",
+    "start": "tsc  && node dist/src/app.js",
     "test": "npx mocha -r  ts-node/register ./test/**/*.spec.ts"
   },
   "keywords": [],

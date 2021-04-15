@@ -8,7 +8,7 @@ export async function get(request: Request, response: Response){
         const product = await getProducts(request.params,request.query)
         response.send(product)
     }catch(error){
-        response.status(error.status ?? 500).send(error.message)
+        response.status(error.status ?? 500).send({message:error.message})
     }
 }
 
@@ -18,6 +18,6 @@ export async function create(request: Request, response: Response){
         const result = await createProduct(build(productCreationRequest))
         response.send(result)
     }catch(error){
-        response.status(error.status ?? 500).send(error.message)
+        response.status(error.status ?? 500).send({message:error.message})
     }
 }
