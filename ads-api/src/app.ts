@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import {Database} from "./configs/database";
 dotenv.config()
 debug('security-api');
+import morgan from 'morgan'
 
 const app = express();
 const {PORT} = process.env;
@@ -13,6 +14,7 @@ const {PORT} = process.env;
     module.exports.MongoClient = await new Database().getDbConenction()
 
     app.use(bodyParser.json());
+    app.use(morgan('combined'))
     app.use(`/api`, require('./adapters/input').router);
     app.listen(PORT, () => {
         debug.log(`server is listening on ${PORT}`);
