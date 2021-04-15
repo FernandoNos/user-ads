@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && cp .env dist/.env && node dist/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx mocha -r  ts-node/register ./test/**/*.spec.ts"
   },
   "keywords": [],
   "author": "",
@@ -13,10 +13,17 @@
   "devDependencies": {
     "@types/express": "^4.17.11",
     "@types/mocha": "^8.2.2",
+    "@types/sinon": "^10.0.0",
+    "chai": "^4.3.4",
+    "mocha": "^8.3.2",
+    "node-mocks-http": "^1.10.1",
     "nodemon": "^2.0.7",
+    "sinon": "^10.0.0",
+    "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
   },
   "dependencies": {
+    "@types/chai": "^4.2.16",
     "@types/debug": "^4.1.5",
     "@types/jsonwebtoken": "^8.5.1",
     "@types/lodash": "^4.14.168",
@@ -31,11 +38,13 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "migrate-mongo": "^8.2.2",
-    "mocha": "^8.3.2",
+    "mock-import": "^1.0.6",
+    "mock-require": "^3.0.3",
     "mongodb": "^3.6.6",
     "mongodb-typescript": "^2.2.1",
     "node-forge": "^0.10.0",
     "npx": "^3.0.0",
+    "proxyrequire": "^1.0.21",
     "uuid": "^8.3.2",
     "yup": "^0.32.9"
   }
