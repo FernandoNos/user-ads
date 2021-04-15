@@ -5,9 +5,14 @@ import {UserModel} from "./models/UserModel";
 import {BusinessException} from "../../exceptions/BusinessException";
 
 export async function login(userLoginModel: UserLoginModel) : Promise<UserModel | undefined>{
-    const dbUsers = await UsersRepository.findAll({name: userLoginModel.name, email: userLoginModel.email})
-    if(_.isEmpty(dbUsers)) return undefined
-    return dbUsers[0]
+    try {
+        const dbUsers = await UsersRepository.findAll({name: userLoginModel.name, email: userLoginModel.email})
+        if (_.isEmpty(dbUsers)) return undefined
+        return dbUsers[0]
+    }catch(error){
+        console.error(`Error logging in user ${error.message} ${error.stackTrace}`)
+        return undefined
+    }
 }
 
 export async function register(registerModel: UserModel){
@@ -17,6 +22,7 @@ export async function register(registerModel: UserModel){
         const newUserDb = await UsersRepository.save(registerModel)
         return newUserDb
     }catch(error){
+        console.error(`Error registering new user ${error.message} ${error.stackTrace}`)
         throw error
     }
 }

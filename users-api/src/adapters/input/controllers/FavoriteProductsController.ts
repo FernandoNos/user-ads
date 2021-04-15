@@ -8,7 +8,6 @@ import {validateAddFavoriteProductRequest} from "./models/AddFavorteRequestModel
 
 export async function addFavorite(request: Request, response: Response){
     try {
-
         const {productId} = validateAddFavoriteProductRequest(request.body)
         const userId = response.locals.user.uuid
 
