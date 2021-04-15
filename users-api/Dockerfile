@@ -1,0 +1,9 @@
+FROM node:14
+
+RUN mkdir -p /opt/users-api
+
+ENV PROJECT_HOME /opt/users-api
+COPY . $PROJECT_HOME
+WORKDIR $PROJECT_HOME
+
+EXPOSE 3001
