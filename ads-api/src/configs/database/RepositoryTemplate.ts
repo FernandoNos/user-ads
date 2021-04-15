@@ -14,7 +14,7 @@ export class MongoRepository<T extends BaseEntity> {
   constructor(collection: string, connection: Db) {
     this.collection = collection;
     this.repository = connection;
-    this.repositoryCollection = this.repository.collection(this.collection);
+    this.repositoryCollection = this.repository?.collection(this.collection);
   }
 
   public create(entity: T): Promise<T> {

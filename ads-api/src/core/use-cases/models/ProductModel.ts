@@ -1,6 +1,6 @@
 import {string, object, TypeOf, number} from 'yup';
 import {RuntimeException} from "../../../exceptions/RuntimeException";
-import {Product} from "../../../adapters/output/entities/Product";
+import {Product} from "../../../adapters/output/database/entities/Product";
 
 const ProductModelSchema = object().shape({
     id: string(),

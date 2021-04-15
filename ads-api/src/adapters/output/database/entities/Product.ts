@@ -1,5 +1,5 @@
-import {BaseEntity} from "../../../configs/database/RepositoryTemplate";
-import {ProductModel} from "../../../core/use-cases/models/ProductModel";
+import {BaseEntity} from "../../../../configs/database/RepositoryTemplate";
+import {ProductModel} from "../../../../core/use-cases/models/ProductModel";
 import { v4 as uuidv4 } from 'uuid';
 
 export class Product extends BaseEntity {
